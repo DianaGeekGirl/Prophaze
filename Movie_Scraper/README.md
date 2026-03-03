@@ -5,6 +5,47 @@ A Flask-based REST API application for automated movie search and verification u
 **Live Deployment**: http://3.106.188.31:30007  
 **Docker Hub Image**: https://hub.docker.com/r/moviechecker/webkyte-antipiracy
 
+## Table of Contents
+
+1. [Prerequisites](#prerequisites)  
+   1.1 [Local Development](#local-development)  
+   1.2 [Self-Hosted Kubernetes Cluster](#self-hosted-kubernetes-cluster)  
+2. [Architecture](#architecture)  
+   2.1 [Complete Deployment Pipeline](#complete-deployment-pipeline)  
+   2.2 [Kubernetes Cluster Architecture](#kubernetes-cluster-architecture)  
+3. [File Structure](#file-structure)  
+4. [Installation & Setup](#installation--setup)  
+   4.1 [1. Cluster Setup Steps](#1-cluster-setup-steps)  
+      4.1.1 [Step 1.1: Launch EC2 Instance](#step-11-launch-ec2-instance)  
+      4.1.2 [Step 1.2: Connect to the Instance](#step-12-connect-to-the-instance)  
+      4.1.3 [Step 1.3: Install Kubernetes Dependencies](#step-13-install-kubernetes-dependencies)  
+      4.1.4 [Step 1.4: Initialize Kubernetes Cluster](#step-14-initialize-kubernetes-cluster)  
+      4.1.5 [Step 1.5: Install Network Plugin (Flannel)](#step-15-install-network-plugin-flannel)  
+      4.1.6 [Step 1.6: Disable Password Authentication (Security)](#step-16-disable-password-authentication-security)  
+      4.1.7 [Step 1.7: Verify Cluster Setup](#step-17-verify-cluster-setup)  
+   4.2 [2. Docker Image Build, Push & Deploy](#2-docker-image-build-push--deploy)  
+      4.2.1 [Docker Hub Repository](#docker-hub-repository)  
+      4.2.2 [Step 2.1: Build Docker Image Locally](#step-21-build-docker-image-locally)  
+      4.2.3 [Step 2.2: Test Docker Image Locally](#step-22-test-docker-image-locally)  
+      4.2.4 [Step 2.3: Push Image to Docker Hub](#step-23-push-image-to-docker-hub)  
+      4.2.5 [Step 2.4: Pull Image from Docker Hub (For Distribution)](#step-24-pull-image-from-docker-hub-for-distribution)  
+      4.2.6 [Dockerfile Layers (What gets built)](#dockerfile-layers-what-gets-built)  
+   4.3 [3. Kubernetes Deployment Steps](#3-kubernetes-deployment-steps)  
+      4.3.1 [Step 3.1: Kubernetes Pulls Image from Docker Hub](#step-31-kubernetes-pulls-image-from-docker-hub)  
+      4.3.2 [Step 3.1: Copy Kubernetes Manifests to Cluster](#step-31-copy-kubernetes-manifests-to-cluster)  
+      4.3.3 [Step 3.2: Apply Kubernetes Resources](#step-32-apply-kubernetes-resources)  
+      4.3.4 [Step 3.3: Verify Deployment](#step-33-verify-deployment)  
+      4.3.5 [Step 3.4: View Application Logs](#step-34-view-application-logs)  
+5. [How to Access the Application](#how-to-access-the-application)  
+   5.1 [AWS Instance Details](#aws-instance-details)  
+   5.2 [Security Group Configuration](#security-group-configuration)  
+   5.3 [Access via Web Browser](#1-access-via-web-browser)  
+6. [API Endpoints](#api-endpoints)  
+7. [Docker Image Reference](#docker-image-reference)  
+8. [Security Features](#security-features)  
+9. [Application Access](#application-access)
+
+
 ## Prerequisites
 
 ### Local Development
@@ -470,23 +511,6 @@ https://hub.docker.com/r/moviechecker/webkyte-antipiracy
 - ✅ Network policies can be implemented with Calico or similar
 - ✅ Internal pod-to-pod communication isolated by default
 
-```
-
-## Troubleshooting
-
-### Issue: Pods are in CrashLoopBackOff or Pending
-```bash
-# Check pod events
-kubectl describe pod <POD_NAME>
-
-# Check pod logs
-kubectl logs <POD_NAME>
-
-# Common causes:
-# - Image not found: docker pull moviechecker/webkyte-antipiracy:v1
-# - Resource constraints: kubectl top nodes
-# - Network issues: kubectl get events -A
-```
 
 ### Application Access
 
