@@ -1,12 +1,3 @@
-"""
-Flask Server for Webkyte Movie Search Automation
-================================================
-Provides web interface for the Playwright-based movie search automation
-
-Author: Diana
-Date: February 2026
-"""
-
 from flask import Flask, render_template, request, jsonify, send_file
 from flask_cors import CORS
 import asyncio
